@@ -27,6 +27,9 @@ fn main() {
         network::run(cmd_rx, event_tx, net_db).await;
     });
 
+    // Initialize GTK before tray icon (required by appindicator backend)
+    gtk::init().expect("Failed to initialize GTK");
+
     // Create tray icon BEFORE eframe (must be on main thread, before event loop)
     let tray = ui::tray::AppTray::new();
 
